@@ -76,4 +76,8 @@ second is KeyValueService folder for doing crud operation, so before reading cod
 
          2.2 : docker service create --name AzarDataNetTestAPI --publish 5000:5000 --publish 5001:5001 --mount type=volume,source=wwwroot_volume,target=/dotnetdata/wwwroot --mount type=volume,source=logs_volume,target=/dotnetdata/Logs your_image_name
 
+now you can open swagger and test the app : [http://localhost:5000/dsdkhkhdihwfi/swagger](http://localhost:5000/dsdkhkhdihwfi/swagger/index.html)
+
+note :my apis are all billingual so you must pass either "fa" or "en-US" as the value of Culture parameter of the apis 
+
 
