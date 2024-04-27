@@ -1,0 +1,97 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <UserSecretsId>002e6d9a-2efa-4984-a04c-9ffc24c88090</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Content Update="nlog.config" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
+
+ <ItemGroup>
+   <PackageReference Include="Asp.Versioning.Abstractions" Version="8.1.0" />
+   <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
+   <PackageReference Include="NLog.Web.AspNetCore" Version="4.*" />
+   <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.0" />
+   <PackageReference Include="UAParser" Version="3.1.47" />
+   <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.3" />
+   <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
+   <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3" />
+   <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.3" />
+   <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.3" />
+   <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.3" />
+   <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3" />
+   <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
+   <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.3" />
+   <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.3" />
+   <PackageReference Include="System.Text.Json" Version="8.0.3" />
+
+   <PackageReference Include="AutoMapper" Version="12.0.1" />
+   <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+   <PackageReference Include="EntityFramework" Version="6.4.4" />
+   <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+   <PackageReference Include="NLog" Version="5.2.8" />
+   <PackageReference Include="RestSharp" Version="110.2.0" />
+   <PackageReference Include="Swashbuckle" Version="5.6.0" />
+   <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+   <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.0" />
+   <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+   <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+   <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+   <PackageReference Include="Swashbuckle.Core" Version="5.6.0" />
+   <PackageReference Include="System.Runtime" Version="4.3.1" />
+   
+ </ItemGroup>                                        
+    
+
+  <ItemGroup>
+    <Folder Include="Modules\Common\API\Controllers\" />
+    <Folder Include="Modules\Common\Application\Contracts\enums\" />
+    <Folder Include="Modules\Common\Application\Contracts\Validators\" />
+    <Folder Include="Modules\Common\Domain\Entities\" />
+    <Folder Include="Modules\Common\Domain\Interfaces\Services\" />
+    <Folder Include="Modules\Common\Infrastructure\Services\" />
+    <Folder Include="Modules\KeyValueService\API\Controllers\" />
+    <Folder Include="Modules\KeyValueService\API\ViewModels\" />
+    <Folder Include="Modules\KeyValueService\Application\Contracts\Dto\" />
+    <Folder Include="Modules\KeyValueService\Application\Contracts\Validators\" />
+    <Folder Include="Modules\KeyValueService\Application\Facades\Registeration\" />
+    <Folder Include="Modules\KeyValueService\Application\Mappings\" />
+    <Folder Include="Modules\KeyValueService\Application\RegisterationFacad\" />
+    <Folder Include="Modules\KeyValueService\Application\Services\Registeration\" />
+    <Folder Include="Modules\KeyValueService\Domain\Exceptions\" />
+    <Folder Include="Modules\KeyValueService\Domain\Interfaces\Repositories\" />
+    <Folder Include="Modules\KeyValueService\Domain\Interfaces\Services\" />
+    <Folder Include="Modules\KeyValueService\Domain\ValueObjects\" />
+    <Folder Include="Modules\KeyValueService\Infrastructure\Data\Configurations\Registeration\" />
+    <Folder Include="Modules\KeyValueService\Infrastructure\Data\Repositories\Registeration\" />
+    <Folder Include="Modules\KeyValueService\Infrastructure\Services\Registeration\" />
+    <Folder Include="Modules\KeyValueService\Tests\IntegrationTests\API\Controllers\" />
+    <Folder Include="Modules\KeyValueService\Tests\IntegrationTests\API\ViewModels\" />
+    <Folder Include="Modules\KeyValueService\Tests\IntegrationTests\Application\" />
+    <Folder Include="Modules\KeyValueService\Tests\UnitTests\Application\" />
+    <Folder Include="Modules\KeyValueService\Tests\UnitTests\Domain\" />
+    <Folder Include="Modules\KeyValueService\Tests\UnitTests\Infrastructure\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <UserSecretsId>b3edfacf-f92e-4eb3-9d4c-1ae1f20138e0</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+    <!--<UserSecretsId>639e6a08-131c-4501-9eb7-eafefc8d6117</UserSecretsId>-->
+    <!--<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>-->
+  </PropertyGroup>
+
+</Project>

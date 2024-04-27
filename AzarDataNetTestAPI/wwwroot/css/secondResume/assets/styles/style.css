@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800&display=swap');
+
+* {
+    font-family: 'League Spartan', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    margin: 40px auto;
+    background-color: #1D2E48;
+    width: 210mm;
+    min-height: 297mm;
+}
+
+.hero {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    top: -100px;
+}
+
+.profile {
+    position: relative;
+    top: 100px;
+    z-index: 999 !important;
+}
+.profile img {
+    width: 250px;
+    border-radius: 50%;
+}
+
+.resume::before {
+    content: "";
+    background-color: #4B5767;
+    width: 50%;
+    height: 200px;
+    position: absolute;
+    top: 100px;
+    left: 0;
+}
+
+.resume {
+    padding-top: 110px;
+    padding-bottom: 20px;
+    background-color: #fff;
+    margin: 0 auto;
+}
+
+.resume h1 {
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #1D2E48;
+    font-size: 3rem;
+
+}
+
+.resume h2 {
+    text-transform: uppercase;
+    color: #1D2E48;
+    font-size: 1.8rem;
+}
+
+.resume .resumeDetail {
+    width: 450px;
+    margin: 30px auto;
+    position: relative;
+    padding: 20px 0;
+}
+
+.resume .resumeDetail:after , .resume .resumeDetail:before {
+    content: "";
+    width: 300px;
+    background-color: #c7c7c7;
+    position: absolute;
+}
+
+.resume .resumeDetail:before {
+    height: 2px;
+    top: 0;
+    margin: 0 auto;
+    left: 70px;
+}
+
+.resume .resumeDetail:after {
+    height: 1px;
+    bottom: 0;
+    left: 70px;
+}
+
+.title {
+    font-weight: 800;
+}
+
+.experiences , .educations , .skills , .contacts {
+    text-align: left;
+    color: #1e3148;
+    padding-top: 20px;
+    padding-left: 20px;
+
+}
+
+.experiences .experienceItem h6 , .educations .educationItem h6{
+    font-weight: 700;
+    padding-top: 20px;
+}
+
+.skillItem .progress {
+    margin-top: 7px;
+    height: 8px;
+    width: 100px;
+}
+.skillItem .progress-bar {
+    height: 8px;
+    background-color: #1e3148;
+    border-radius: 5px;
+}
+
+.skillItem span {
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.contactItem {
+    padding: 4px 0;
+}
+.contactItem i {
+    color: #fff;
+    background-color: #1D2E48;
+    padding: 7px;
+    border-radius: 50%;
+    font-size: 12px;
+}
