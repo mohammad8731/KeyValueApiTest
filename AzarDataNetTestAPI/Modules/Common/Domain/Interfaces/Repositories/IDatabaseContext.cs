@@ -2,10 +2,13 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace AzarDataNetTestAPI.Modules.Common.Domain.Interfaces.Repositories
 {
-    public interface IDatabaseContext
+    public interface IDatabaseContext 
     {
 
         public DbSet<KeyValueEntity> KeyValuesEntity { get; set; }
@@ -87,6 +90,7 @@ namespace AzarDataNetTestAPI.Modules.Common.Domain.Interfaces.Repositories
         EntityEntry Entry([NotNull] object entity);
         EntityEntry<TEntity> Entry<TEntity>([NotNull] TEntity entity) where TEntity : class;
 
+        DbSet<T> Set<T>() where T : class;
         void SetIsModified(object entity, List<string> propertiesName);
 
     }

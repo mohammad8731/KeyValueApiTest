@@ -18,6 +18,7 @@ namespace AzarDataNetTestAPI.Modules.Common.Infrastructure.Data.Repositories.Com
             _databaseContext = databaseContext;
             _hostApplicationLifetime = hostApplicationLifetime;
             _serviceMessageLanguage =httpContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.Name;
+            _dbSet = _databaseContext.Set<T>();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()

@@ -1,4 +1,5 @@
-﻿using AzarDataNetTestAPI.Modules.KeyValueService.Infrastructure.Data.Repositories.Registeration;
+﻿using AzarDataNetTestAPI.Modules.KeyValueService.Application.Services.Registeration;
+using AzarDataNetTestAPI.Modules.KeyValueService.Infrastructure.Data.Repositories.Registeration;
 
 namespace AzarDataNetTestAPI.Modules.KeyValueService.Application.RegisterationFacad
 {
@@ -8,6 +9,7 @@ namespace AzarDataNetTestAPI.Modules.KeyValueService.Application.RegisterationFa
         public static void AddKeyValueServiceRegisterationFacad(this IServiceCollection services)
         {
             KeyValueRepositoryRegisteration.AddKeyValueRepositoryRegisteration(services);
+            KeyValueServiceRegisteration.AddKeyValueRepositoryRegisteration(services);
         }
     }
 }

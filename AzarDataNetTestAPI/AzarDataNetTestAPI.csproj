@@ -37,7 +37,6 @@
 
    <PackageReference Include="AutoMapper" Version="12.0.1" />
    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-   <PackageReference Include="EntityFramework" Version="6.4.4" />
    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
    <PackageReference Include="NLog" Version="5.2.8" />
    <PackageReference Include="RestSharp" Version="110.2.0" />
@@ -60,15 +59,11 @@
     <Folder Include="Modules\Common\Domain\Entities\" />
     <Folder Include="Modules\Common\Domain\Interfaces\Services\" />
     <Folder Include="Modules\Common\Infrastructure\Services\" />
-    <Folder Include="Modules\KeyValueService\API\Controllers\" />
     <Folder Include="Modules\KeyValueService\API\ViewModels\" />
-    <Folder Include="Modules\KeyValueService\Application\Contracts\Dto\" />
     <Folder Include="Modules\KeyValueService\Application\Contracts\Validators\" />
     <Folder Include="Modules\KeyValueService\Application\Facades\Registeration\" />
     <Folder Include="Modules\KeyValueService\Application\Mappings\" />
-    <Folder Include="Modules\KeyValueService\Application\Services\Registeration\" />
     <Folder Include="Modules\KeyValueService\Domain\Exceptions\" />
-    <Folder Include="Modules\KeyValueService\Domain\Interfaces\Services\" />
     <Folder Include="Modules\KeyValueService\Domain\ValueObjects\" />
     <Folder Include="Modules\KeyValueService\Infrastructure\Data\Configurations\Registeration\" />
     <Folder Include="Modules\KeyValueService\Infrastructure\Services\Registeration\" />

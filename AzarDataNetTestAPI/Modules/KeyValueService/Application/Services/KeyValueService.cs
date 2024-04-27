@@ -1,13 +1,16 @@
 ﻿using AzarDataNetTestAPI.Modules.Common.Application.Contracts.Dto.ServiceResult.Response;
 using AzarDataNetTestAPI.Modules.Common.Domain.Exceptions.Common;
+using AzarDataNetTestAPI.Modules.KeyValueService.Application.Contracts.Dto;
 using AzarDataNetTestAPI.Modules.KeyValueService.Application.Contracts.statics;
 using AzarDataNetTestAPI.Modules.KeyValueService.Domain.Entities;
 using AzarDataNetTestAPI.Modules.KeyValueService.Domain.Interfaces.Repositories;
+using AzarDataNetTestAPI.Modules.KeyValueService.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Localization;
 
 namespace AzarDataNetTestAPI.Modules.KeyValueService.Application.Services
 {
-    public class KeyValueService
+
+    public class KeyValueService : IKeyValueService
     {
         private readonly IKeyValueRepository _keyValueRepository;
         private readonly string _serviceMessageLanguage;
@@ -30,36 +33,41 @@ namespace AzarDataNetTestAPI.Modules.KeyValueService.Application.Services
            return ResultDto<KeyValueEntity>.Success(entity);
         }
 
-        public async Task<ResultDto> Add(KeyValueEntity newEntity)
+        public async Task<ResultDto> Add(AddOrUpdateKeyValuePairDto request)
         {
-            var existedEntity = await _keyValueRepository.GetByKeyAsync(newEntity.Key);
+            var existedEntity = await _keyValueRepository.GetByKeyAsync(request.Key);
             if (existedEntity == null)
             {
+                var newEntity = new KeyValueEntity
+                {
+                    Key = request.Key,
+                    Value = request.Value
+                };
                 await _keyValueRepository.AddAsync(newEntity);
             }
             else
             {
                 // if any value exits for the key ,so we update it since we have no repeated key
-                await UpdateKeyValue(existedEntity, newEntity);
+                await UpdateKeyValue(existedEntity, request);
             }
             return ResultDto.Success(_serviceMessageLanguage);
         }
 
-        public async Task<ResultDto> Update(KeyValueEntity entity)
+        public async Task<ResultDto> Update(AddOrUpdateKeyValuePairDto request)
         {
-            var existedEntity = await _keyValueRepository.GetByKeyAsync(entity.Key);
+            var existedEntity = await _keyValueRepository.GetByKeyAsync(request.Key);
             if (existedEntity == null)
             {
                 throw new NotFoundException(KeyValueMessagePlaceHolders.KeyValueEntityPersian,
                     KeyValueMessagePlaceHolders.KeyValueEntityEng, _serviceMessageLanguage);
             }
-            await UpdateKeyValue(existedEntity, entity);
+            await UpdateKeyValue(existedEntity, request);
             return ResultDto.Success(_serviceMessageLanguage);
         }
 
-        private async Task UpdateKeyValue(KeyValueEntity existedEntity,KeyValueEntity updateEntity)
+        private async Task UpdateKeyValue(KeyValueEntity existedEntity,AddOrUpdateKeyValuePairDto request)
         {
-            existedEntity.Value = updateEntity.Value;
+            existedEntity.Value = request.Value;
             await _keyValueRepository.UpdateAsync(existedEntity);
         }
 
