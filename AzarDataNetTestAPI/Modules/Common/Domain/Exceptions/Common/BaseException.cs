@@ -6,9 +6,11 @@ namespace AzarDataNetTestAPI.Modules.Common.Domain.Exceptions.Common
     public class BaseException : Exception
     {
         public PanelIdentityDto<long> PanelIdentityDto;
-        public BaseException(string message, PanelIdentityDto<long> panelIdentityDto) : base(message)
+        public short StatusCode;
+        public BaseException(string message, PanelIdentityDto<long> panelIdentityDto,short statusCode) : base(message)
         {
             PanelIdentityDto = panelIdentityDto;
+            StatusCode = statusCode;
         }
         public BaseException(string message, Exception? innerException, PanelIdentityDto<long> panelIdentityDto) : base(message, innerException)
         {

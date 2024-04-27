@@ -4,6 +4,7 @@ using AzarDataNetTestAPI.Modules.Common.Application.Contracts.Dto.Identity.Reque
 using AzarDataNetTestAPI.Modules.Common.Application.Contracts.Dto.ServiceResult.Response;
 using AzarDataNetTestAPI.Modules.Common.Application.Services.Logs;
 using AzarDataNetTestAPI.Modules.Common.Domain.Exceptions.Common;
+using Microsoft.AspNetCore.Http.HttpResults;
 using static AzarDataNetTestAPI.Modules.Common.Infrastructure.Data.Configs.Constants.IConstants;
 using ILogger = NLog.ILogger;
 
@@ -27,7 +28,7 @@ namespace AzarDataNetTestAPI.Modules.Common.Application.Middleware
             }
             catch (DBOperationFailedException ex)
             {
-                await CheckDatabaseException(httpContext, ex, ex.MainException);
+                await CheckDatabaseException(httpContext, ex, ex.MainException,ex.StatusCode);
             }
             catch (ThirdPartyConnectionException ex)
             {
@@ -35,11 +36,11 @@ namespace AzarDataNetTestAPI.Modules.Common.Application.Middleware
             }
             catch (FileIOException ex)
             {
-                await CheckFileIOException(httpContext, ex, ex.MainException);
+                await CheckFileIOException(httpContext, ex, ex.MainException,ex.StatusCode);
             }
             catch (CommonException ex)
             {
-                await CheckCommonException(httpContext, ex);
+                await CheckCommonException(httpContext, ex,ex.StatusCode);
             }
             catch (SmsEmailException ex)
             {
@@ -51,21 +52,14 @@ namespace AzarDataNetTestAPI.Modules.Common.Application.Middleware
             }
         }
 
-        //private async Task CheckFinancialException(HttpContext context, FinancialException exp)
-        //{
-        //    ILogger logger = MyNLog.GetLogger(exp, exp.MethodName);
-        //    logger.Error(AddTraceToMessage(exp.MainException, exp.PanelIdentityDto));
-        //    await HandleExceptionAsync(context, exp.Message);
-        //}
-
         private async Task CheckSmsEmailException(HttpContext httpContext, SmsEmailException ex)
         {
             ILogger logger = MyNLog.GetLogger(LoggerType.SendingMessageLogger);
             logger.Error(AddTraceToMessage(ex, null));
-            await HandleExceptionAsync(httpContext, ex.Message);
+            await HandleExceptionAsync(httpContext, ex.Message,ex.StatusCode);
         }
 
-        private async Task CheckFileIOException(HttpContext context, Exception ex, Exception mainException)
+        private async Task CheckFileIOException(HttpContext context, Exception ex, Exception mainException,short statusCode)
         {
             ILogger logger = MyNLog.GetLogger(LoggerType.FileIOExpLogger);
             if (mainException.GetType() == typeof(ArgumentNullException)
@@ -83,36 +77,36 @@ namespace AzarDataNetTestAPI.Modules.Common.Application.Middleware
                  )
             {
                 logger.Error(AddTraceToMessage(mainException, null));
-                await HandleExceptionAsync(context, ex.Message);
+                await HandleExceptionAsync(context, ex.Message,statusCode);
             }
             else
             {
                 logger.Error(AddTraceToMessage(mainException, null));
-                await HandleExceptionAsync(context, ex.Message);
+                await HandleExceptionAsync(context, ex.Message,statusCode);
             }
         }
 
-        private async Task CheckDatabaseException(HttpContext context, Exception ex, Exception mainException)
+        private async Task CheckDatabaseException(HttpContext context, Exception ex, Exception mainException,short statusCode)
         {
             ILogger logger = MyNLog.GetLogger(LoggerType.DatabaseExpLogger);
             if (mainException.GetType() == typeof(Microsoft.EntityFrameworkCore.DbUpdateException)
                 || mainException.GetType() == typeof(Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException))
             {
                 logger.Error(AddTraceToMessage(mainException, null));
-                await HandleExceptionAsync(context, ex.Message);
+                await HandleExceptionAsync(context, ex.Message,statusCode);
             }
             else
             {
                 logger.Error(AddTraceToMessage(mainException, null));
-                await HandleExceptionAsync(context, ex.Message);
+                await HandleExceptionAsync(context, ex.Message,statusCode);
             }
         }
 
 
 
-        private async Task CheckCommonException(HttpContext context, Exception ex)
+        private async Task CheckCommonException(HttpContext context, Exception ex,short statusCode)
         {
-            await HandleExceptionAsync(context, ex.Message);
+            await HandleExceptionAsync(context, ex.Message,statusCode);
         }
 
         private async Task CheckOtherException(HttpContext context, Exception ex)
@@ -122,19 +116,19 @@ namespace AzarDataNetTestAPI.Modules.Common.Application.Middleware
             logger.Error(message);
             if(message.StartsWith("Connection Timeout Expired"))
             {
-                await HandleExceptionAsync(context, "Connection Timeout");
+                await HandleExceptionAsync(context, "Connection Timeout",(short)HttpStatusCode.BadRequest);
             }
             else
             {
-                await HandleExceptionAsync(context, "500 server error");
+                await HandleExceptionAsync(context, "500 server error",(short)HttpStatusCode.BadRequest);
             }
         }
 
 
-        private async Task HandleExceptionAsync(HttpContext context, string message)
+        private async Task HandleExceptionAsync(HttpContext context, string message,short statusCode)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Response.StatusCode = statusCode;
             await context.Response.WriteAsync(new ResultDto
             {
                 IsSuccess = false,
