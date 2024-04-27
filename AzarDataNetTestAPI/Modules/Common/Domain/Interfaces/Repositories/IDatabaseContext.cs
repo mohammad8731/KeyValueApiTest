@@ -1,12 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using AzarDataNetTestAPI.Modules.KeyValueService.Domain.Entities;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 
 namespace AzarDataNetTestAPI.Modules.Common.Domain.Interfaces.Repositories
 {
     public interface IDatabaseContext
     {
 
-      
+        public DbSet<KeyValueEntity> KeyValuesEntity { get; set; }
 
 
 

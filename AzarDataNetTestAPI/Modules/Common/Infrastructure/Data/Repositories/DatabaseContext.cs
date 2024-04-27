@@ -1,4 +1,5 @@
 ﻿using AzarDataNetTestAPI.Modules.Common.Domain.Interfaces.Repositories;
+using AzarDataNetTestAPI.Modules.KeyValueService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AzarDataNetTestAPI.Modules.Common.Infrastructure.Data.Repositories
@@ -9,17 +10,16 @@ namespace AzarDataNetTestAPI.Modules.Common.Infrastructure.Data.Repositories
         {
 
         }
-        //public DbSet<AreaOfInterest> AreaOfInterests { get; set; }
-      
+        public DbSet<KeyValueEntity> KeyValuesEntity { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //sina
 
             //modelBuilder.Entity<Company>().HasMany(c => c.JobOffers).WithOne(jo => jo.Company)
             //    .HasForeignKey(jo => jo.CompanyId).OnDelete(DeleteBehavior.Cascade);
-
+            modelBuilder.ConfigurKeyValueEntity();
 
 
 
