@@ -11,6 +11,8 @@ second is KeyValueService folder for doing crud operation, so before reading cod
 4- for running app , you have two choise :
 
    1- install MSSQL and .Net 8 manually in your windows os then run the app
+
+   or
    
    2- using docker file bellow in your project folder : 
 
@@ -59,5 +61,19 @@ second is KeyValueService folder for doing crud operation, so before reading cod
    COPY --from=publish /app/publish .
    
    ENTRYPOINT ["dotnet", "AzarDataNetTestAPI.dll"]
+
+   3- after preparing docker file run bellow command in the order written below:
    
+    1-	Docker run with persistant storage : this is used for persistant storage for wwwroot and logs even after container die
+    
+         docker volume create wwwroot_volume
+         
+         docker volume create logs_volume
+
+    2-   run the doker file via one of bellow approaches : after creating image via "docker image build ." you must run bellow command
+
+         2.1 : docker run --name AzarDataNetTestAPI -d -p 5000:5000 -p 5001:5001 -v wwwroot_volume:/dotnetdata/wwwroot -v logs_volume:/dotnetdata/Logs  your_image_name
+
+         2.2 : docker service create --name AzarDataNetTestAPI --publish 5000:5000 --publish 5001:5001 --mount type=volume,source=wwwroot_volume,target=/dotnetdata/wwwroot --mount type=volume,source=logs_volume,target=/dotnetdata/Logs your_image_name
+
 
