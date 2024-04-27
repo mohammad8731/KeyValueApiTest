@@ -1,4 +1,6 @@
-﻿using AzarDataNetTestAPI.Modules.Common.Domain.Interfaces.Repositories;
+﻿using AzarDataNetTestAPI.Modules.Common.Domain.Exceptions.Common;
+using AzarDataNetTestAPI.Modules.Common.Domain.Interfaces.Repositories;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 
 namespace AzarDataNetTestAPI.Modules.Common.Infrastructure.Data.Repositories.Common
@@ -8,12 +10,14 @@ namespace AzarDataNetTestAPI.Modules.Common.Infrastructure.Data.Repositories.Com
         protected readonly IDatabaseContext _databaseContext;
         protected readonly IHostApplicationLifetime _hostApplicationLifetime;
         protected DbSet<T> _dbSet;
+        protected readonly string _serviceMessageLanguage;
 
 
-        public BaseRepository(IDatabaseContext databaseContext, IHostApplicationLifetime hostApplicationLifetime)
+        public BaseRepository(IDatabaseContext databaseContext, IHostApplicationLifetime hostApplicationLifetime,IHttpContextAccessor httpContextAccessor)
         {
             _databaseContext = databaseContext;
             _hostApplicationLifetime = hostApplicationLifetime;
+            _serviceMessageLanguage =httpContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.Name;
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
@@ -29,14 +33,14 @@ namespace AzarDataNetTestAPI.Modules.Common.Infrastructure.Data.Repositories.Com
         public async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
-            await _databaseContext.SaveChangesAsync();
+            await SaveChangesAsync();
         }
 
         public async Task UpdateAsync(T entity)
         {
             _dbSet.Attach(entity);
             _databaseContext.Entry(entity).State = EntityState.Modified;
-            await _databaseContext.SaveChangesAsync();
+            await SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
@@ -45,17 +49,31 @@ namespace AzarDataNetTestAPI.Modules.Common.Infrastructure.Data.Repositories.Com
             if (entity != null)
             {
                 _dbSet.Remove(entity);
-                await _databaseContext.SaveChangesAsync();
+                await SaveChangesAsync();
             }
+        }
+
+        public async Task DeleteAsync(T entity)
+        {
+            _dbSet.Remove(entity);
+            await SaveChangesAsync();
         }
 
         public async Task SaveChangesAsync()
         {
-            await _databaseContext.SaveChangesAsync(_hostApplicationLifetime.ApplicationStopping);
+            try
+            {
+                await _databaseContext.SaveChangesAsync(_hostApplicationLifetime.ApplicationStopping);
+            }
+            catch (Exception ex)
+            {
+                throw new DBOperationFailedException("عملیات", "operation", _serviceMessageLanguage, ex);
+            }
         }
         public void Attach<T>(T entity) where T : class
         {
             _databaseContext.Attach(entity);
         }
+
     }
 }

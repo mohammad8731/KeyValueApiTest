@@ -18,5 +18,6 @@ namespace AzarDataNetTestAPI.Modules.KeyValueService.Infrastructure.Data.Reposit
         {
             return _databaseContext.KeyValuesEntity.Where(k => k.Key == Key).FirstOrDefaultAsync();
         }
+
     }
 }
