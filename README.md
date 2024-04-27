@@ -12,4 +12,52 @@ second is KeyValueService folder for doing crud operation, so before reading cod
 
    1- install MSSQL and .Net 8 manually in your windows os then run the app
    
-   2- using docker 
+   2- using docker file bellow in your project folder : 
+
+
+   FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+   
+   USER app
+   
+   WORKDIR /app
+   
+   EXPOSE 5000
+   
+   EXPOSE 5001
+
+   
+   
+   FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+   
+   ARG BUILD_CONFIGURATION=Release
+   
+   WORKDIR /src
+
+   
+   COPY ["AzarDataNetTestAPI/AzarDataNetTestAPI.csproj", "AzarDataNetTestAPI/"]
+   
+   RUN dotnet restore "./AzarDataNetTestAPI/./AzarDataNetTestAPI.csproj"
+   
+   COPY . .
+   
+   WORKDIR "/src/AzarDataNetTestAPI"
+   
+   RUN dotnet build "./AzarDataNetTestAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+   
+   FROM build AS publish
+   
+   ARG BUILD_CONFIGURATION=Release
+   
+   RUN dotnet publish "./AzarDataNetTestAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+   
+   
+   FROM base AS final
+   
+   WORKDIR /app
+   
+   COPY --from=publish /app/publish .
+   
+   ENTRYPOINT ["dotnet", "AzarDataNetTestAPI.dll"]
+   
+
