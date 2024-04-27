@@ -22,7 +22,7 @@ namespace AzarDataNetTestAPI.Modules.KeyValueService.Application.Services
             _serviceMessageLanguage =httpContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.Name;
         }
 
-        public async Task<ResultDto<KeyValueEntity>> GetByKeyAsync(string key)
+        public async Task<ResultDto<KeyValueEntity>> GetByKey(string key)
         {
            var entity = await _keyValueRepository.GetByKeyAsync(key);
            if (entity == null)

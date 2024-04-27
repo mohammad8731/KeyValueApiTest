@@ -11,7 +11,7 @@ namespace AzarDataNetTestAPI.Modules.KeyValueService.Domain.Interfaces.Services
     // we apply interface in service implementation for open closed principle and dependency inversion principle
     public interface IKeyValueService
     {
-        Task<ResultDto<KeyValueEntity>> GetByKeyAsync(string key);
+        Task<ResultDto<KeyValueEntity>> GetByKey(string key);
 
         Task<ResultDto> Add(AddOrUpdateKeyValuePairDto request);
 

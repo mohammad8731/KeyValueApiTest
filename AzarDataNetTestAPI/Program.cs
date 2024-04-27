@@ -16,20 +16,6 @@ namespace AzarDataNetTestAPI
                 logger.Debug("mainMethod starts");
                 if (!IsDevelopment.Value)
                 {
-                    //while (RunTime.ContinuesRun)
-                    //{
-                    //    logger.Debug("while starts");
-                    //    var host = CreateHostBuilder(args).Build();
-                    //    host.Run();
-                    //    //Console.WriteLine( KeepAliveService.thread.ThreadState);
-                    //    // if server : ContinuesRun is true if me ContinuesRun gets false
-                    //    if (RunTime.ContinuesRun && !IsDevelopment.Value)
-                    //    {
-                    //        FileManager.WriteNewFile(ResourceAddress.AppSettingsFile, RunTime.AppSettingsJson);
-                    //    }
-                    //    logger.Debug("while ends");
-                    //}
-
                     logger.Debug("while starts");
                     var host = CreateHostBuilder(args).Build();
                     host.Run();
@@ -47,18 +33,12 @@ namespace AzarDataNetTestAPI
             }
             finally
             {
-                //sendsms();
                 logger.Debug("mainMethod ends");
                 KeepAliveService.CreateAllEssentialDocs();
                 NLog.LogManager.Shutdown();
             }
         }
 
-        //public static void sendsms()
-        //{
-        //    var smsService = TabanSendSMSService.SendSmsMessageWithPostMethodStatic(
-        //        new SendSmsDto { PatternType = PatternType.ResetPass.ToString(), SenderPhoneNumberType = SenderPhoneNumberType.BlackList5000.ToString(), PhoneOrUserName = "9175027109", code = "20" });
-        //}
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(
