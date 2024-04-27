@@ -66,14 +66,11 @@
     <Folder Include="Modules\KeyValueService\Application\Contracts\Validators\" />
     <Folder Include="Modules\KeyValueService\Application\Facades\Registeration\" />
     <Folder Include="Modules\KeyValueService\Application\Mappings\" />
-    <Folder Include="Modules\KeyValueService\Application\RegisterationFacad\" />
     <Folder Include="Modules\KeyValueService\Application\Services\Registeration\" />
     <Folder Include="Modules\KeyValueService\Domain\Exceptions\" />
-    <Folder Include="Modules\KeyValueService\Domain\Interfaces\Repositories\" />
     <Folder Include="Modules\KeyValueService\Domain\Interfaces\Services\" />
     <Folder Include="Modules\KeyValueService\Domain\ValueObjects\" />
     <Folder Include="Modules\KeyValueService\Infrastructure\Data\Configurations\Registeration\" />
-    <Folder Include="Modules\KeyValueService\Infrastructure\Data\Repositories\Registeration\" />
     <Folder Include="Modules\KeyValueService\Infrastructure\Services\Registeration\" />
     <Folder Include="Modules\KeyValueService\Tests\IntegrationTests\API\Controllers\" />
     <Folder Include="Modules\KeyValueService\Tests\IntegrationTests\API\ViewModels\" />

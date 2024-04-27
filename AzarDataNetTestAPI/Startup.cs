@@ -6,6 +6,7 @@ using AzarDataNetTestAPI.Modules.Common.Application.Middleware;
 using AzarDataNetTestAPI.Modules.Common.Application.RegisterationFacad;
 using AzarDataNetTestAPI.Modules.Common.Application.Services.KeepAlive;
 using AzarDataNetTestAPI.Modules.Common.Infrastructure.Data.Configurations.SwagerConfig;
+using AzarDataNetTestAPI.Modules.KeyValueService.Application.RegisterationFacad;
 
 namespace AzarDataNetTestAPI
 {
@@ -23,9 +24,9 @@ namespace AzarDataNetTestAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // add any class related to common module that supposed to be made and their lifecycle managed via DI container
+            // add any class related to common module that supposed to be made via DI container and their lifecycle managed via DI container
             services.AddCommonServiceRegistrationFacad(_Configuration,MyAllowSpecificOrigins);
-
+            services.AddKeyValueServiceRegisterationFacad();
 
         }
 
